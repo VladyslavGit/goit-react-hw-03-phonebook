@@ -15,17 +15,29 @@ class App extends Component {
     filter: ""
   };
 
+  componentDidMount() {
+    const contacts =
+      localStorage.getItem("contacts") !== null
+        ? JSON.parse(localStorage.getItem("contacts"))
+        : this.state.contacts;
+    this.setState({ contacts });
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+  }
+
   submitContact = data => {
     const isPersonExist = this.state.contacts.find(
       person => person.name === data.name
     );
-    if (isPersonExist) {
-      alert(`${data.name} is already in contacts.`);
-      return;
-    }
-    this.setState(prevstate => ({
-      contacts: [...prevstate.contacts, data]
-    }));
+    !isPersonExist
+      ? this.setState(prevstate =>
+          data.name
+            ? { contacts: [...prevstate.contacts, data] }
+            : alert("Please enter the name")
+        )
+      : alert(`${data.name} is already in contacts.`);
   };
 
   deleteContact = e => {
