@@ -40,6 +40,7 @@ class ContactForm extends Component {
             onChange={this.handleChange}
             value={this.state.name}
             className={styles.input}
+            required
           />
           <h2 className={styles.paragraf}>Number</h2>
           <input
@@ -51,6 +52,7 @@ class ContactForm extends Component {
             onChange={this.handleChange}
             value={this.state.number}
             className={styles.input}
+            required
           />
           <button type="submit" className={styles.buttonAdd}>
             Add contact
